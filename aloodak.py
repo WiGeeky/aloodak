@@ -96,9 +96,7 @@ class info_maker():
         return None
 
     def checksum(self):
-        status = os.getenv('STATUS')
-        status = os.popen("sha1sum report.png").read().split()[0]
-        return status
+        return os.popen("sha1sum report.png").read().split()[0]
 
     def cpation(self):
         items = {"🔹شاخص آلودگی هوا : " : self.aqi,
