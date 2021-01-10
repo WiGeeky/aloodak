@@ -7,7 +7,6 @@ from datetime import date, datetime
 import os
 import pytz
 jdatetime.set_locale("fa_IR")
-# defining textcolor / light/dark colors has calculated by hps
 
 # for replacing english digits with persian ones
 digits = {'1':'۱', '2':'۲', '3':'۳', '4':'۴', '5':'۵', '6':'۶', '7':'۷', '8':'۸', '9':'۹', '0':'۰'}
@@ -19,6 +18,8 @@ statusbar = {
     "Moderate": "سالم",
     "Good": "پاک"
 }
+
+# defining textcolor / light/dark colors has calculated by hps
 color = {
     "Hazardous": (104,62,81),
     "Very Unhealthy": (99,70,117),
@@ -27,10 +28,13 @@ color = {
     "Moderate": (165,127,35),
     "Good": (113,139,58)
 }
+
+
 def now():
     tz = pytz.timezone('Asia/Tehran') 
     tehran_now = datetime.now(tz)    
     return tehran_now.strftime("%H:%M")
+
 
 def today():
     today = jdatetime.datetime.now(pytz.timezone("Asia/Tehran")).strftime("%A %y/%m/%d").split()
@@ -39,11 +43,14 @@ def today():
     day = " ".join(i.strip() for i in today)
     return [day, en2per(date)]
 
+
 def en2per(string):
     # it parses string in list for acessing to string charachters
     chars = list(map(lambda x: digits[x] if x.isdecimal() else x,list(string)))
     # it returns an string of above list elements wich joined
     return ''.join([str(x) for x in chars]) 
+
+
 class aloodak:
     def __init__(self):
         pass
@@ -62,6 +69,7 @@ class aloodak:
         data['humidity'] = en2per(j['data']['current']['weather']['hu']) #humidity
         return data
 
+
 class info_maker():
     def __init__(self,data):
         self.imgdir = f"badges/{data['status']}.png"
@@ -72,6 +80,7 @@ class info_maker():
         self.aqi = str(data['aqi']) # pollution rate
         self.status = statusbar[data['status']] # pollution status
         self.color = color[data['status']]
+
     def draw(self): 
         self.image = Image.open(self.imgdir) # opening image
         self.draw_object = ImageDraw.Draw(self.image) # loafing draw module 
@@ -85,10 +94,12 @@ class info_maker():
         # saving image
         self.image.save("report.png")
         return None
+
     def checksum(self):
         status = os.getenv('STATUS')
         status = os.popen("sha1sum report.png").read().split()[0]
         return status
+
     def cpation(self):
         items = {"🔹شاخص آلودگی هوا : " : self.aqi,
                  "🔹وضعیت هوا : " : self.status,
