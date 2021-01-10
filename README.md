@@ -1,9 +1,9 @@
 # Aloodak
 Aloodak is a Telegram bot that reports the air pollution status in various cities in the world. The version specific to Tehran, Iran is available at 
-(@Aloodak)[https://t.me/Aloodak]. 
+[@Aloodak](https://t.me/Aloodak). 
 
 ## Setup
-To run Aloodak, you need a Telegram Bot ((Create one here)[https://t.me/BotFather]) a channel and an API key from IQAir ((Get one here)[https://www.iqair.com/dashboard/api]). Then, you need to create a `config.conf.json` file in Aloodak's root directory.
+To run Aloodak, you need a Telegram Bot ([Create one here](https://t.me/BotFather)) a channel and an API key from IQAir ([Get one here](https://www.iqair.com/dashboard/api)). Then, you need to create a `config.conf.json` file in Aloodak's root directory.
 
 ```bash
 git clone https://github.com/frowzyispenguin/aloodak.git
