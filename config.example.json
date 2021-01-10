@@ -1,11 +1,9 @@
 {
-    "last_measure": -1,
+    "telegram_api_key": "",
+    "telegram_chat_id": "",
+    "iqair_api_key": "",
 
-    "telegram_api_key": "<Your Telegram Bot Token, Get from https://t.me/BotFather>",
-    "telegram_chat_id": "<Your Telegram Channel ID or username>",
-    "iqair_api_key": "<Your IQAir API Key, Get from https://www.iqair.com/dashboard/api>",
-
-    "country": "<Country name in lowercase i.e iran>",
-    "province": "<Province name in lowercase i.e tehran>",
-    "city": "<City name in lowercase i.e tehran>"
+    "country": "",
+    "province": "",
+    "city": ""
 }
