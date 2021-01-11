@@ -16,17 +16,10 @@
 
     For copyright related issues, contact frowzyispenguin<at>riseup.net
 """
-
-import os
-import json
-import pytz
 from io import BytesIO
-import requests
 from PIL import Image, ImageDraw, ImageFont
-from datetime import date, datetime
-import jdatetime
-
-jdatetime.set_locale("fa_IR")
+import requests
+from misc import now, today, toPersianNumerics
 
 statusbar = {
     "Hazardous": "خطر اضطراری",
@@ -46,31 +39,6 @@ color = {
     "Moderate": (165,127,35),
     "Good": (113,139,58)
 }
-
-
-def now():
-    tz = pytz.timezone('Asia/Tehran') 
-    tehran_now = datetime.now(tz)    
-    return tehran_now.strftime("%H:%M")
-
-
-def today():
-    today = jdatetime.datetime.now(pytz.timezone("Asia/Tehran")).strftime("%A %y/%m/%d").split()
-    date = today[-1]
-    today.pop(-1)
-    day = " ".join(i.strip() for i in today)
-    return [day, date]
-
-
-def toPersianNumerics(string: str):
-    digits = {'1':'۱', '2':'۲', '3':'۳', '4':'۴', '5':'۵', '6':'۶', '7':'۷', '8':'۸', '9':'۹', '0':'۰'}
-    string = str(string) # In case a number is being passed
-
-    # Map the string into a list, replace a character if there's a digit
-    chars = list(map(lambda x: digits[x] if x.isdecimal() else x,list(string)))
-    
-    # Join the mapped string back together and return a string
-    return ''.join([str(x) for x in chars]) 
 
 
 def aqiToStatus(aqi: int):
@@ -152,31 +120,3 @@ class Visualizor():
         self.caption = toPersianNumerics(caption)
         
         return self.caption
-
-# Configuration Classes
-class Config:
-    def __init__(self, file_path = None, ):
-        if not file_path:
-            self.file_path = 'config.conf.json'
-        else:
-            self.file_path = file_path
-        self._read()
-
-    def _read(self):
-        with open(self.file_path, 'r') as file:
-            self._config = json.load(file)
-        
-        for key, value in self._config.items():
-            setattr(self, key, value)
-
-class MeasureTracker(Config):
-    
-    def __init__(self):
-        if not os.path.exists('last_measure.conf.json'):
-            self.setMeasure(-1)
-        
-        super().__init__('last_measure.conf.json')
-
-    def setMeasure(self, measure: int):
-        with open('last_measure.conf.json', 'w+') as file:
-            json.dump({'last_measure': measure}, file)
