@@ -29,3 +29,5 @@ Aloodak is always evolving and pull requests are always appreciated. if you enco
 Unless otherwise noted, this project is licensed under the GNU GPLv3 license. See the accompanying LICENSE file for more information.
 
 We take any DMCA requests very seriously, so if any of our assets are violating your intellectual properties, don't hesitate to contact us through the issues feature of GitHub.
+
+"AirVisual", "IQAir", and "Telegram" are trademarks of their respective owners.
