@@ -16,14 +16,22 @@
 
     For copyright related issues, contact frowzyispenguin<at>riseup.net
 """
-
+import argparse
 from core import getPollutionData, Visualizor
 from config import Config, MeasureTracker
 from requests import post
 
 if __name__ == '__main__':
-    config = Config()
-    tracker = MeasureTracker()
+    # Process passed arguments
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config', help='Config file to be used')
+    args = parser.parse_args()
+
+    config_path = None if not args.config else args.config
+
+    # Initialize classes
+    config = Config(file_path=config_path)
+    tracker = MeasureTracker(file_path=f'lm_{config.country}_{config.province}_{config.city}.conf.json')
 
     data = getPollutionData(config.iqair_api_key, config.country, config.province, config.city)
     info = Visualizor(data, True)

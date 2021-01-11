@@ -35,12 +35,14 @@ class Config:
 
 class MeasureTracker(Config):
     
-    def __init__(self):
-        if not os.path.exists('last_measure.conf.json'):
+    def __init__(self, file_path="last_measure.conf.json"):
+        self.file_path = file_path
+
+        if not os.path.exists(self.file_path):
             self.setMeasure(-1)
         
-        super().__init__('last_measure.conf.json')
+        super().__init__(self.file_path)
 
     def setMeasure(self, measure: int):
-        with open('last_measure.conf.json', 'w+') as file:
+        with open(self.file_path, 'w+') as file:
             json.dump({'last_measure': measure}, file)
